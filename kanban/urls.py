@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
+
+from rest_framework.schemas import get_schema_view
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
+    url('openapi-schema/', get_schema_view(
+        title="Tutorial app",  # Title of your app
+        description="tutorial app",  # Description of your app
+        version="1.0.0",
+        public=True,
+    ), name='openapi-schema'),
 ]
