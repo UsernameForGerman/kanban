@@ -14,7 +14,7 @@ def create_timestamp_for_inprogress(sender, instance, **kwargs):
 @receiver(post_save, sender=Task)
 def create_sum_for_done(sender, instance, **kwargs):
     if instance.status == DONE:
-        delta = datetime.now() - instance.timestart
+        delta = datetime.now() - instance.timestart.start_time
         Sum.objects.create(sum=SALARY_PER_HOUR*(delta.seconds // 3600))
     return
 

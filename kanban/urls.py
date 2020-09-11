@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls import url
 
 from rest_framework.schemas import get_schema_view
@@ -22,9 +22,10 @@ from rest_framework.schemas import get_schema_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('openapi-schema/', get_schema_view(
-        title="Tutorial app",  # Title of your app
-        description="tutorial app",  # Description of your app
+        title="Kanban API",
+        description="kanban API app",  # Description of your app
         version="1.0.0",
         public=True,
     ), name='openapi-schema'),
+    path('api/v1/', include('tasks.urls')),
 ]
