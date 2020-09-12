@@ -35,10 +35,10 @@ class TaskSerializer(ModelSerializer):
         hh = delta.seconds // 3600
         mm = delta.seconds % 3600 // 60
         ss = delta.seconds % 3600 % 60
-        return f'{hh}:{mm}:{ss}' if task.get_status_display() == IN_PROGRESS else ''
+        return f'{hh}:{mm}:{ss}' if task.get_status_display() == IN_PROGRESS else None
 
     def get_sum(self, task):
         if not hasattr(task, 'sum'):
             return None
-        return task.sum.sum if task.get_status_display() == DONE else ''
+        return task.sum.sum if task.get_status_display() == DONE else None
 

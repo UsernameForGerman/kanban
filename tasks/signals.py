@@ -9,7 +9,8 @@ from .models import TimeStart, Task, Sum, IN_PROGRESS, DONE, SALARY_PER_HOUR
 @receiver(post_save, sender=Task)
 def create_timestamp_for_inprogress(sender, instance, **kwargs):
     if instance.get_status_display() == IN_PROGRESS:
-        TimeStart.objects.create(task=instance)
+        if not hasattr(instance, 'timestart'):
+            TimeStart.objects.create(task=instance)
     return
 
 @receiver(post_save, sender=Task)
@@ -20,7 +21,8 @@ def create_sum_for_done(sender, instance, **kwargs):
         else:
             delta = timedelta(0)
 
-        Sum.objects.create(task=instance, sum=SALARY_PER_HOUR / 3600 * delta.seconds)
+        if not hasattr(instance, 'sum'):
+            Sum.objects.create(task=instance, sum=SALARY_PER_HOUR / 3600 * delta.seconds)
     return
 
 @receiver(post_save, sender=Task)

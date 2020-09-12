@@ -24,8 +24,7 @@ class TasksViewSet(ModelViewSet):
         serializer = TaskSerializer(data=self.request.data)
         if serializer.is_valid():
             task = get_object_or_404(Task, id=self.kwargs['id'])
-            task.status = serializer.validated_data['status']
-            task.save(update_fields=('status', ))
+            serializer.update(task, serializer.validated_data)
             return Response(HTTP_200_OK)
 
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
