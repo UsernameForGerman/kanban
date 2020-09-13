@@ -12,18 +12,6 @@ DEBUG = os.environ.get('DEBUG', True)
 # ------------------------------------------------------------------------------
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(' ')
 
-# REST FRAMEWORK
-# ------------------------------------------------------------------------------
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny', ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (),
-    'DEFAULT_PARSER_CLASSES': (
-        'rest_framework.parsers.FormParser',
-        'rest_framework.parsers.MultiPartParser',
-        'rest_framework.parsers.JSONParser',
-    )
-}
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
