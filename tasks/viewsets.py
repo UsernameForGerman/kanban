@@ -16,7 +16,7 @@ class TasksViewSet(ModelViewSet):
         serializer = TaskSerializer(data=self.request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(HTTP_201_CREATED)
+            return Response(serializer.validated_data, HTTP_201_CREATED)
 
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
@@ -25,7 +25,7 @@ class TasksViewSet(ModelViewSet):
         if serializer.is_valid():
             task = get_object_or_404(Task, id=self.kwargs['id'])
             serializer.update(task, serializer.validated_data)
-            return Response(HTTP_200_OK)
+            return Response(serializer.validated_data, HTTP_200_OK)
 
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 

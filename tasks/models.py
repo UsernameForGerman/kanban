@@ -13,7 +13,7 @@ class Task(models.Model):
     )
 
     name = models.CharField('Name of the task', max_length=256)
-    status = models.IntegerField('Status of the task', choices=STATUS_CHOICES)
+    status = models.IntegerField('Status of the task', choices=STATUS_CHOICES, default=0)
 
 class TimeStart(models.Model):
     task = models.OneToOneField(Task, on_delete=models.CASCADE, primary_key=True)

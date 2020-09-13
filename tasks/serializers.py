@@ -8,10 +8,14 @@ from .models import Task, IN_PROGRESS, DONE, TODO
 class TaskSerializer(ModelSerializer):
     start_time = SerializerMethodField(read_only=True, allow_null=True)
     sum = SerializerMethodField(read_only=True, allow_null=True)
+    status = SerializerMethodField()
 
     class Meta:
         model = Task
-        fields = ('id', 'name', 'status', 'start_time', 'sum')
+        fields = ('id', 'status', 'name', 'start_time', 'sum')
+
+    def get_status(self, task):
+        return task.get_status_display()
 
     # def is_valid(self, raise_exception=False):
     #     valid = super().is_valid()
