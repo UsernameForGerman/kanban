@@ -1,0 +1,21 @@
+version: "3"
+
+volumes:
+  production_media: {}
+  production_static: {}
+
+services:
+  kanban: &kanban
+    build:
+      context: .
+      dockerfile: ./compose/Dockerfile
+    command: ["/start"]
+    image: kanban_production
+    ports:
+      - "8000:9000"
+    env_file:
+      - ./.envs/.django
+      - ./.envs/.postgres
+    volumes:
+      - production_static:/var/kanban/static
+      - production_media:/var/kanban/media
